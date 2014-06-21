@@ -128,7 +128,7 @@ def at_showdown(state, player):
 
 def bettor(state):
 	assert is_terminal(state)
-	assert state > num_internal() + 1
+	assert state >= num_internal() + 1
 
 	return (state - (num_internal() + 1))%3
 
