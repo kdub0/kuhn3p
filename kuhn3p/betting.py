@@ -62,6 +62,18 @@ def can_call(state):
 def can_fold(state):
 	return not can_bet(state)
 
+def facing_bet(state):
+    return can_fold(state)
+
+def facing_bet_call(state):
+    return to_decision(state) == 3
+
+def facing_bet_fold(state):
+    return to_decision(state) == 4
+
+def call_closes_action(state):
+    return facing_bet_call(state) or facing_bet_fold(state) 
+
 def num_actions(state):
 	assert is_internal(state)
 	return 2
