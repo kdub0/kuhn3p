@@ -1,9 +1,13 @@
 from kuhn3p import deck, dealer, players
+from random import Random
+
+rng         = Random()
+rng.seed(31337)  # each seed corresponds to a different set of hands
 
 num_hands   = 3000
 the_players = [players.Chump(0.99, 0.01, 0.0), 
-	       players.Chump(0.0, 1.0, 0.0), 
-	       players.Bluffer(0.2) ]
+    players.Chump(0.99, 0.01, 0.0), 
+    players.Bluffer(0.2) ]
 
 total = [0, 0, 0]
 for hand in range(num_hands):
@@ -13,7 +17,7 @@ for hand in range(num_hands):
 
 	this_players   = [the_players[first], the_players[second], the_players[third]]
 
-	(state, delta) = dealer.play_hand(this_players, deck.shuffled())
+	(state, delta) = dealer.play_hand(this_players, deck.shuffled(rng))
 	for i in range(3):
 		total[(first + i)%3] += delta[i]
 
