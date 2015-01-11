@@ -66,10 +66,10 @@ def facing_bet(state):
     return can_fold(state)
 
 def facing_bet_call(state):
-    return to_decision(state) == 3
+    return to_decision(state) == 2
 
 def facing_bet_fold(state):
-    return to_decision(state) == 4
+    return to_decision(state) == 3
 
 def call_closes_action(state):
     return facing_bet_call(state) or facing_bet_fold(state) 
@@ -105,6 +105,17 @@ def act(state, action):
 			return num_internal() + 1 + (player+1)%3 + 3*3
 		else:
 			return num_internal() + 1 + (player+1)%3 + 3
+
+def action_name(state, action):
+    assert action < num_actions(state)
+
+    if action == 0:
+        return 'c'
+
+    if can_bet(state):
+        return 'r'
+    else:
+        return 'f'
 
 def is_showdown(state):
 	assert is_terminal(state)
@@ -176,3 +187,20 @@ def to_string(state):
 	else:
 		return 'c'*bettor + 'r' + (first and 'c' or 'f') + (second and 'c' or 'f')
 
+def string_to_state(string):
+    state = root()
+
+    for action in string:
+        assert is_internal(state)
+        if action == 'c':
+            state = act(state, 0)
+        elif action == 'r':
+            assert can_bet(state)
+            state = act(state, 1)
+        elif action == 'f':
+            assert can_fold(state)
+            state = act(state, 1)
+        else:
+            assert False
+
+    return state
