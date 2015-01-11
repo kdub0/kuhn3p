@@ -24,7 +24,7 @@ def play_hand(players, cards):
 		action = players[player].act(state, cards[player])
 		state  = betting.act(state, action)
 
-	shown_cards = [betting.at_showdown(state, i) and cards[i] or None for i in range(3)]
+	shown_cards = [cards[i] if betting.at_showdown(state, i) else None for i in range(3)]
 
 	for i in range(3):
 		players[i].end_hand(i, cards[i], state, shown_cards)
