@@ -17,7 +17,7 @@ def card_to_string(card):
 	return __card_to_string[card]
 
 def string_valid_card(string):
-	return any((c in __card_to_string) for c in string)
+        return len(string) == 1 and string[0] in __card_to_string
 
 def string_to_card(string):
 	assert string_valid_card(string)
