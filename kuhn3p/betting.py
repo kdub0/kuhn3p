@@ -66,10 +66,10 @@ def facing_bet(state):
     return can_fold(state)
 
 def facing_bet_call(state):
-    return to_decision(state) == 2
+    return to_decision(state) == 3
 
 def facing_bet_fold(state):
-    return to_decision(state) == 3
+    return to_decision(state) == 2
 
 def call_closes_action(state):
     return facing_bet_call(state) or facing_bet_fold(state) 
